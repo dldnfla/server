@@ -3,4 +3,4 @@ uvicorn[standard]
 sqlalchemy==1.4.*
 
 pytest
-ruff 
+ruff
