@@ -11,6 +11,9 @@ class DialogBase(BaseModel):
 class DialogCreate(DialogBase):
     pass
 
+class DialogGet(DialogBase):
+    id: int
+    
 
 class DialogEdit(DialogBase):
     id: int
