@@ -10,11 +10,14 @@ from sqlalchemy.orm import Session
 from . import crud, schemas
 from .database import get_db
 
-# to get a string like this run:
-# openssl rand -hex 32
-SECRET_KEY = 'SECRET_KEY'
-ALGORITHM = "HS256"
+from starlette.config import Config
 
+
+config = Config('.env')
+
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config('ACCESS_TOKEN_EXPIRE_MINUTES'))
+SECRET_KEY = config('SECRET_KEY')
+ALGORITHM = "HS256"
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
 
