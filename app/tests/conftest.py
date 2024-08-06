@@ -106,5 +106,3 @@ def authorized_client(session, token):
     client.headers = {**client.headers, "Authorization": f"Bearer {token}"}
 
     yield client
-
-

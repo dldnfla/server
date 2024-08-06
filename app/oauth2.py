@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Annotated
 
 from fastapi import Depends, HTTPException, status
@@ -43,9 +43,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
 
     if expires_delta:
-        expire = datetime.now(datetime.UTC) + expires_delta
+        expire = datetime.now(timezone.utc) + expires_delta
     else:
-        expire = datetime.now(datetime.UTC) + timedelta(minutes=150000000)
+        expire = datetime.now(timezone.utc) + timedelta(minutes=150000000)
 
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -77,7 +77,7 @@ async def get_authenticated_user(
     except JWTError:
         raise credentials_exception
 
-    user = crud.get_user_by_username(db, email=token_data.username)
+    user = crud.get_user_by_username(db, username=token_data.username)
 
     if user is None:
         raise credentials_exception

@@ -31,15 +31,15 @@ class UserEdit(BaseModel):
     class Config:
         orm_mode = True
 
+
 class UserGet(BaseModel):
-    id: int 
-    username: str 
-    fullname: str 
-    profile_image: str 
-    status_message: str 
-    user_url: str
-    music_info: str 
+    id: int
+    username: str
+    fullname: str | None = None
+    profile_image: str | None = None
+    status_message: str | None = None
+    user_url: str | None = None
+    music_info: str | None = None
 
     class Config:
         orm_mode = True
-
