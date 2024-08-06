@@ -8,9 +8,9 @@ class User(Base):
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True)
-    user_id = Column(String,primary_key = True, nullable=False)
-    user_password = Column(String, nullable=False)
-    username = Column(String)
+    username = Column(String,primary_key = True, nullable=False)
+    hashed_password = Column(String, nullable=False)
+    fullname = Column(String)
     status_message = Column(String)
     user_url = Column(String, nullable=False)
     music_info = Column(String)
