@@ -12,7 +12,7 @@ from .database import get_db
 
 # to get a string like this run:
 # openssl rand -hex 32
-SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+SECRET_KEY = "7f31b68c01b44a10c2e07ec3bfe88dd077703345fbfcda0808b3226f08ebb6a4"
 ALGORITHM = "HS256"
 
 
@@ -29,10 +29,10 @@ def get_password_hash(password):
     return pwd_context.hash(password)
 
 
-def authenticate_user(user: schemas.UserAuth, email: str, password: str):
+def authenticate_user(user: schemas.UserAuth, username: str, password: str):
     if not user:
         return None
-    if user.email != email:
+    if user.username != username:
         return None
     if not verify_password(password, user.hashed_password):
         return None
@@ -77,7 +77,7 @@ async def get_authenticated_user(
     except JWTError:
         raise credentials_exception
 
-    user = crud.get_user_by_email(db, email=token_data.email)
+    user = crud.get_user_by_username(db, email=token_data.usernmae)
 
     if user is None:
         raise credentials_exception
