@@ -9,7 +9,9 @@ from ..database import get_db
 router = APIRouter(prefix="/users", tags=["users"])
 
 
-@router.post("/login", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/login", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED
+)
 def create_user(
     user: schemas.UserCreate,
     db: Session = Depends(get_db),
@@ -27,17 +29,19 @@ def create_user(
         ),
     )
 
+
 @router.post("/duplicate", status_code=status.HTTP_200_OK)
 def check_duplicate_user(
     username: str,
     db: Session = Depends(get_db),
 ):
-    db_user = crud.get_user_by_username(db,username=username)
+    db_user = crud.get_user_by_username(db, username=username)
 
     if db_user:
         raise HTTPException(status_code=400, detail="ID already registered")
-    
+
     ...
+
 
 @router.get("/me", response_model=schemas.UserGet)
 def get_user(

@@ -29,4 +29,3 @@ def update_user(db: Session, user: schemas.UserGet, new_user: schemas.UserEdit):
     db.commit()
 
     return get_user(db, user.id)
-
