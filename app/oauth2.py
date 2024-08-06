@@ -57,7 +57,7 @@ def decode_access_token(token: str) -> schemas.TokenData:
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     username: str = payload.get("sub")
 
-    return schemas.TokenData(email=username)
+    return schemas.TokenData(username=username)
 
 
 async def get_authenticated_user(
