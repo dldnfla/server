@@ -43,9 +43,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     to_encode = data.copy()
 
     if expires_delta:
-        expire = datetime.utcnow() + expires_delta
+        expire = datetime.now(datetime.UTC) + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=150000000)
+        expire = datetime.now(datetime.UTC) + timedelta(minutes=150000000)
 
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
@@ -55,9 +55,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
 
 def decode_access_token(token: str) -> schemas.TokenData:
     payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-    email: str = payload.get("sub")
+    username: str = payload.get("sub")
 
-    return schemas.TokenData(email=email)
+    return schemas.TokenData(email=username)
 
 
 async def get_authenticated_user(
@@ -72,12 +72,12 @@ async def get_authenticated_user(
 
     try:
         token_data = decode_access_token(token)
-        if token_data.email is None:
+        if token_data.username is None:
             raise credentials_exception
     except JWTError:
         raise credentials_exception
 
-    user = crud.get_user_by_username(db, email=token_data.usernmae)
+    user = crud.get_user_by_username(db, email=token_data.username)
 
     if user is None:
         raise credentials_exception
