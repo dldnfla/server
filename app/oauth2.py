@@ -12,7 +12,7 @@ from .database import get_db
 
 # to get a string like this run:
 # openssl rand -hex 32
-SECRET_KEY = "7f31b68c01b44a10c2e07ec3bfe88dd077703345fbfcda0808b3226f08ebb6a4"
+SECRET_KEY = 'SECRET_KEY'
 ALGORITHM = "HS256"
 
 
