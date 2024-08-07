@@ -4,7 +4,7 @@ password = "test_password"
 
 def test_token_success(client):
     response = client.post(
-        "/users/",
+        "/users/signup",
         json={
             "username": username,
             "password": password,

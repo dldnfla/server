@@ -66,7 +66,7 @@ def password():
 def test_user(client, username, password):
     body = {"username": username, "password": password}
 
-    response = client.post("/users/", json=body)
+    response = client.post("/users/signup", json=body)
     assert response.status_code == 201, response.text
     data = response.json()
     assert data["username"] == body["username"]
@@ -104,3 +104,38 @@ def authorized_client(session, token):
     client.headers = {**client.headers, "Authorization": f"Bearer {token}"}
 
     yield client
+
+
+@pytest.fixture
+def test_dialogs(session):
+    dialogs = []
+    for t in range(10):
+        dialog = crud.create_dialog(
+            session,
+            schemas.DialogCreate(
+                user_id=1,
+                visitor="tester",
+                contents=f"{t}th testing",
+            ),
+        )
+
+        dialogs.append(dialog)
+
+    return dialogs
+
+
+@pytest.fixture
+def test_dialog(authorized_client):
+    response = authorized_client.post(
+        "/dialog/",
+        json={
+            "user_id": 1,
+            "visitor": "tester",
+            "contents": "testing",
+        },
+    )
+
+    assert response.status_code == 201, response.text
+    data = response.json()
+
+    return data

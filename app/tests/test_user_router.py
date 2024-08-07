@@ -5,7 +5,7 @@ def test_create_user_success(client, session, username, password):
     body = {"username": username, "password": password}
 
     response = client.post(
-        "/users/",
+        "/users/signup",
         json=body,
     )
 
@@ -20,7 +20,7 @@ def test_create_user_success(client, session, username, password):
 
 def test_create_user_fail(client, test_user):
     response = client.post(
-        "/users/",
+        "/users/signup",
         json={
             "username": test_user["username"],
             "password": "asdf",
@@ -32,7 +32,7 @@ def test_create_user_fail(client, test_user):
 
 def test_update_user_success(authorized_client):
     response = authorized_client.put(
-        "/users/me", json={"fullname": "1234", "statusmessage": "asdf"}
+        "/users/me", json={"fullname": "1234", "status_message": "asdf"}
     )
     assert response.status_code == 200, response.text
     data = response.json()
