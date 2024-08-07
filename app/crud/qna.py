@@ -2,6 +2,12 @@ from sqlalchemy.orm import Session
 
 from .. import models, schemas
 
+def create_qna(db: Session, qna: schemas.QnaCreate):
+    db_qna = models.Qna(**qna.dict())
+    db.add(db_qna)
+    db.commit()
+    db.refresh(db_qna)
+    return db_qna
 
 def get_qna(db: Session, user_id: str, skip: int = 0, limit: int = 30):
     return (
