@@ -31,12 +31,10 @@ def update_dialog(
     new_dialog: schemas.DialogEdit,
     dialog_id: int,
 ):
+    print("fnasjknfv")
+
     db.query(models.Dialog).filter(models.Dialog.id == dialog_id).update(
-        new_dialog.dict
+        new_dialog.dict()
     )
     db.commit()
-
-    return get_dialog(
-        db,
-        new_dialog.user_id,
-    )
+    return get_dialog(db, new_dialog.user_id)

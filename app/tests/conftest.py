@@ -123,19 +123,19 @@ def test_dialogs(session):
 
     return dialogs
 
+
 @pytest.fixture
 def test_dialog(authorized_client):
     response = authorized_client.post(
         "/dialog/",
-        json = {
-            "user_id":1,
-            "visitor":"tester",
-            "contents":"testing",    
+        json={
+            "user_id": 1,
+            "visitor": "tester",
+            "contents": "testing",
         },
     )
 
     assert response.status_code == 201, response.text
-
     data = response.json()
 
     return data
