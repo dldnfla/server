@@ -66,7 +66,7 @@ def password():
 def test_user(client, username, password):
     body = {"username": username, "password": password}
 
-    response = client.post("/users/", json=body)
+    response = client.post("/users/signup", json=body)
     assert response.status_code == 201, response.text
     data = response.json()
     assert data["username"] == body["username"]
@@ -122,3 +122,20 @@ def test_dialogs(session):
         dialogs.append(dialog)
 
     return dialogs
+
+@pytest.fixture
+def test_dialog(authorized_client):
+    response = authorized_client.post(
+        "/dialog/",
+        json = {
+            "user_id":1,
+            "visitor":"tester",
+            "contents":"testing",    
+        },
+    )
+
+    assert response.status_code == 201, response.text
+
+    data = response.json()
+
+    return data

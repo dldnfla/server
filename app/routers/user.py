@@ -10,7 +10,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.post(
-    "/login", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED
+    "/signup", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED
 )
 def create_user(
     user: schemas.UserCreate,
