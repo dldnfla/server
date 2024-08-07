@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class DialogBase(BaseModel):
-    user_id: str
+    user_id: int
     visitor: str
     contents: str
 
@@ -17,7 +17,6 @@ class DialogGet(DialogBase):
 
 
 class DialogEdit(DialogBase):
-    id: int
-
     class Config:
         orm_mode: True
+        from_attributes = True
