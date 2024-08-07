@@ -8,6 +8,6 @@ class Dialog(Base):
     __tablename__ = "dialog"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     visitor = Column(String)
     contents = Column(String)

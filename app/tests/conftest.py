@@ -104,3 +104,21 @@ def authorized_client(session, token):
     client.headers = {**client.headers, "Authorization": f"Bearer {token}"}
 
     yield client
+
+
+@pytest.fixture
+def test_dialogs(session):
+    dialogs = []
+    for t in range(10):
+        dialog = crud.create_dialog(
+            session,
+            schemas.DialogCreate(
+                user_id=1,
+                visitor="tester",
+                contents=f"{t}th testing",
+            ),
+        )
+
+        dialogs.append(dialog)
+
+    return dialogs
