@@ -14,6 +14,7 @@ dist/
 logs/nginx_access.log
 logs/nginx_error.log
 logs/server.log
+.db
 downloads/
 eggs/
 .eggs/
