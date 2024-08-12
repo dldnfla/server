@@ -139,3 +139,72 @@ def test_dialog(authorized_client):
     data = response.json()
 
     return data
+
+
+@pytest.fixture
+def test_qna_answer(session):
+    qna = crud.create_qna(
+        session,
+        schemas.QnaCreate(
+            user_id="test_user",
+            answer1="answer1",
+            answer2="answer2",
+            answer3="answer3",
+            answer4="answer4",
+            answer5="answer5",
+            answer6="answer6",
+            answer7="answer7",
+            answer8="answer8",
+            answer9="answer9",
+            answer10="answer10",
+        ),
+    )
+    session.commit()
+    
+    return qna
+
+@pytest.fixture
+def test_qna(session):
+    qna = crud.update_qna(
+        session,
+        schemas.QnaEdit(
+            answer1="answer1",
+            answer2="answer2",
+            answer3="answer3",
+            answer4="answer4",
+            answer5="answer5",
+            answer6="answer6",
+            answer7="answer7",
+            answer8="answer8",
+            answer9="answer9",
+            answer10="answer10",
+        ),
+        user_id= "test_user"
+    )
+    session.commit()
+    
+    return qna
+
+
+# @pytest.fixture
+# def test_qna(authorized_client):
+#     response = authorized_client.post(
+#         "/qna/",
+#         json={
+#             "answer1": "testanswer1",
+#             "answer2": "testanswer2",
+#             "answer3": "testanswer3",
+#             "answer4": "testanswer4",
+#             "answer5": "testanswer5",
+#             "answer6": "testanswer6",
+#             "answer7": "testanswer7",
+#             "answer8": "testanswer8",
+#             "answer9": "testanswer9",
+#             "answer10": "testanswer10",
+#         },
+#     )
+
+    assert response.status_code == 201, response.text
+    data = response.json()
+
+    return data

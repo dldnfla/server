@@ -3,16 +3,16 @@ from pydantic import BaseModel
 
 
 class QnaBase(BaseModel):
-    answer1: str
-    answer2: str
-    answer3: str
-    answer4: str
-    answer5: str
-    answer6: str
-    answer7: str
-    answer8: str
-    answer9: str
-    answer10: str
+    answer1: str | None = None
+    answer2: str | None = None
+    answer3: str | None = None
+    answer4: str | None = None
+    answer5: str | None = None
+    answer6: str | None = None
+    answer7: str | None = None
+    answer8: str | None = None
+    answer9: str | None = None
+    answer10: str | None = None
 
 
 class QnaCreate(QnaBase):
@@ -20,7 +20,6 @@ class QnaCreate(QnaBase):
 
 
 class QnaEdit(QnaBase):
-    id: int
 
     class Config:
         orm_mode: True
