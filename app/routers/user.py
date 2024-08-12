@@ -10,7 +10,7 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.post(
-    "/signup", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED
+    "/signup", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED, 
 )
 def create_user(
     user: schemas.UserCreate,
@@ -53,7 +53,7 @@ def get_user(
     return current_user
 
 
-@router.put("/me", response_model=schemas.UserGet)
+@router.put("/update", response_model=schemas.UserGet)
 def update_user(
     new_user: schemas.UserEdit,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
