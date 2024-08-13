@@ -24,3 +24,15 @@ def get_follow(db: Session, user_id: int, skip: int = 0, limit: int = 100):
         .limit(limit)
         .all()
     )
+
+def update_follow(db: Session, new_qna: schemas.QnaEdit, user_id: str):
+        
+    db_qna = (
+        db.query(models.Qna)
+        .filter(models.Qna.user_id == user_id)
+        .update(new_qna.model_dump())
+    )
+
+    db.commit()
+
+    return get_qna(db, user_id)
