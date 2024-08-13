@@ -26,7 +26,7 @@ def get_user_by_username(db: Session, username: str):
 
 
 def update_user(db: Session, user: schemas.UserGet, new_user: schemas.UserEdit):
-    db.query(models.User).filter(models.User.id == user.id).update(new_user.dict())
+    db.query(models.User).filter(models.User.id == user.id).update(new_user.dict(exclude_unset=True))
     db.commit()
 
     return get_user(db, user.id)
