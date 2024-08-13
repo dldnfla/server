@@ -16,8 +16,9 @@ def create_wish(
     wish: schemas.WishCreate,
     db: Session = Depends(get_db),
 ):
+    current_username = crud.get_user_by_username(db,username=current_user.username)
 
-    if current_user is None:
+    if current_username is None:
         raise HTTPException(status_code=404, detail="User not found")
     
     return crud.create_wish(db, wish)
