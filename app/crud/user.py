@@ -7,6 +7,7 @@ def create_user(db: Session, user: schemas.UserCreate):
     db_user = models.User(
         username=user.username,
         hashed_password=oauth2.get_password_hash(user.password),
+        fullname=user.fullname,
     )
 
     db.add(db_user)
