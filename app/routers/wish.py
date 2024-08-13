@@ -12,10 +12,15 @@ router = APIRouter(prefix="/wish", tags=["wish"])
 
 @router.post("/",status_code=status.HTTP_201_CREATED)
 def create_wish(
+    current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     wish: schemas.WishCreate,
     db: Session = Depends(get_db),
 ):
+    current_username = crud.get_user_by_username(db,username=current_user.username)
 
+    if current_username is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    
     return crud.create_wish(db, wish)
 
 
@@ -30,3 +35,4 @@ def get_wish(
         raise HTTPException(status_code=404, detail="User not found")
 
     return crud.get_wish(db, skip=skip, limit=limit)
+
