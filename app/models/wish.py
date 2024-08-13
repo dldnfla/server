@@ -10,3 +10,5 @@ class Wish(Base):
     id = Column(Integer, primary_key=True, nullable=False, index=True)
     username = Column(String)
     contents = Column(String)
+
+#쓰레기코드
