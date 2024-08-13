@@ -19,7 +19,7 @@ router = APIRouter(prefix="/file",tags=["files"])
 @router.put("/", status_code=status.HTTP_200_OK)
 def create_upload_file(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    image: schemas.UserEdit,
+    image: schemas.UserEdit.profile_image,
     db: Session = Depends(get_db),
 ):
     if current_user is None:
