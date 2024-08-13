@@ -13,3 +13,4 @@ class Mailbox(Base):
     sender = Column(String)
     content = Column(String)
     date = Column(String)
+    

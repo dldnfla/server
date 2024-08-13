@@ -16,3 +16,4 @@ def create_mailbox(db: Session, mailbox: schemas.MailboxCreate):
     db.refresh(db_mailbox)
 
     return db_mailbox
+
