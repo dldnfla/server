@@ -35,3 +35,4 @@ def get_wish(
         raise HTTPException(status_code=404, detail="User not found")
 
     return crud.get_wish(db, skip=skip, limit=limit)
+
