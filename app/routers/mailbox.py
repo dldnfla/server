@@ -19,4 +19,4 @@ def create_mailbox(
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return crud.create_dialog(db, mailbox)
+    return crud.create_mailbox(db, mailbox)
