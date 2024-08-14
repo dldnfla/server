@@ -15,22 +15,20 @@ def create_follow(db: Session, follow: schemas.FollowCreate):
     return db_follow
 
 
-def get_follow(db: Session, user_id: int, skip: int = 0, limit: int = 100):
+def get_follow(db: Session, user_id: str, skip: int = 0, limit: int = 100):
     return (
         db.query(models.Follow)
-        .filter(models.Follow.follower == user_id)
+        # .filter(models.Follow.follower == user_id, models.Follow.follow_get == True)
         .offset(skip)
         .limit(limit)
         .all()
     )
 
 
-def update_follow(db: Session, new_qna: schemas.QnaEdit, user_id: str):
-    db_qna = (
-        db.query(models.Qna)
-        .filter(models.Qna.user_id == user_id)
-        .update(new_qna.model_dump())
-    )
+def update_follow(db: Session, follow: schemas.FollowEdit, user_id: str):
+    db.query(models.Follow).filter(
+        models.Follow.follower == user_id, models.Follow.followee == follow.followee
+    ).update(follow.dict(exclude_unset=True))
 
     db.commit()
 

@@ -8,6 +8,6 @@ class Follow(Base):
     __tablename__ = "follow"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True)
-    follower = Column(String, ForeignKey("users.id"), nullable=False)
-    followee = Column(String, ForeignKey("users.id"), nullable=False)
-    follow_get = Column(Boolean, nullable=False)
+    follower = Column(String, ForeignKey("users.username"), nullable=False)
+    followee = Column(String, ForeignKey("users.username"), nullable=False)
+    follow_get = Column(Boolean, nullable=False, default=False)
