@@ -1,9 +1,20 @@
+from typing import Annotated
+from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+
+from app import oauth2
 
 from .. import models, schemas
 
 
 def create_follow(db: Session, follow: schemas.FollowCreate):
+    db_followee = (
+        db.query(models.User).filter(models.User.username == follow.followee).first()
+    )
+
+    if db_followee is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
     db_follow = models.Follow(
         follower=follow.follower,
         followee=follow.followee,
@@ -15,21 +26,44 @@ def create_follow(db: Session, follow: schemas.FollowCreate):
     return db_follow
 
 
-def get_follow(db: Session, user_id: str, skip: int = 0, limit: int = 100):
-    return (
+def get_follow(
+    db: Session,
+    username: str,
+    skip: int = 0,
+    limit: int = 100,
+):
+    follower_list = (
         db.query(models.Follow)
-        # .filter(models.Follow.follower == user_id, models.Follow.follow_get == True)
+        .filter(
+            models.Follow.follower == username,
+            models.Follow.follow_get == True,
+        )
         .offset(skip)
         .limit(limit)
         .all()
     )
 
+    return follower_list
 
-def update_follow(db: Session, follow: schemas.FollowEdit, user_id: str):
+
+def check_follow_request(db: Session, follower: str, followee: str):
+    db_follow_request = (
+        db.query(models.Follow)
+        .filter(
+            models.Follow.follower == follower,
+            models.Follow.followee == followee,
+        )
+        .first()
+    )
+
+    return db_follow_request
+
+
+def update_follow(db: Session, follow: schemas.FollowEdit, username: str):
     db.query(models.Follow).filter(
-        models.Follow.follower == user_id, models.Follow.followee == follow.followee
+        models.Follow.follower == username, models.Follow.followee == follow.followee
     ).update(follow.dict(exclude_unset=True))
 
     db.commit()
 
-    return get_follow(db, user_id)
+    return get_follow(db, username=username)
