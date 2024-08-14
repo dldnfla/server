@@ -20,6 +20,7 @@ class UserAuth(UserBase):
 
 class UserCreate(UserBase):
     password: str
+    fullname: str
 
 
 class UserEdit(BaseModel):

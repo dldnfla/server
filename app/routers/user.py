@@ -10,7 +10,9 @@ router = APIRouter(prefix="/users", tags=["users"])
 
 
 @router.post(
-    "/signup", response_model=schemas.UserGet, status_code=status.HTTP_201_CREATED
+    "/signup",
+    response_model=schemas.UserGet,
+    status_code=status.HTTP_201_CREATED,
 )
 def create_user(
     user: schemas.UserCreate,
@@ -26,6 +28,7 @@ def create_user(
         user=schemas.UserCreate(
             username=user.username,
             password=user.password,
+            fullname=user.fullname,
         ),
     )
 
@@ -53,7 +56,7 @@ def get_user(
     return current_user
 
 
-@router.put("/me", response_model=schemas.UserGet)
+@router.put("/update", response_model=schemas.UserGet)
 def update_user(
     new_user: schemas.UserEdit,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
@@ -62,4 +65,4 @@ def update_user(
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
-    return crud.update_user(db, current_user, new_user)
+    return crud.update_user(db, new_user, current_user)
