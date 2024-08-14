@@ -35,4 +35,4 @@ def update_follow(db: Session, new_qna: schemas.QnaEdit, user_id: str):
 
     db.commit()
 
-    return get_qna(db, user_id)
+    return get_follow(db, user_id)
