@@ -16,15 +16,11 @@ def create_follow(
     follow: schemas.FollowCreate,
     db: Session = Depends(get_db),
 ):
-    # if follow.follower is None:
-    #     raise HTTPException(status_code=404, detail="User not found")
-    # 이렇게 처리하면 그냥 입력 안하면 User not found 로 처리돼서 내가 crud에 처리한 거처럼 처리해야돼
-    # 디비에 접근하는 건 다 crud로 분리가 규칙
 
     follower_get = crud.check_follow_request(
         db, follower=current_user.username, followee=follow.followee
     )
-    # 여기 . user.id 로 처리 했던데 스키마를 str로 했으면 current_user도 str
+    
     # 테이블에 매칭이 안되어있는 경우
     if not follower_get:
         return crud.create_follow(db, follow)
