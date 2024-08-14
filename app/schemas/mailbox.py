@@ -13,7 +13,7 @@ class MailboxBase(BaseModel):
 class MailboxCreate(MailboxBase):
     pass
 
-class MailboxEdit(MailboxBase):
 
+class MailboxEdit(MailboxBase):
     class Config:
         orm_mode: True

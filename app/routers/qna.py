@@ -9,6 +9,7 @@ from ..database import get_db
 
 router = APIRouter(prefix="/qna", tags=["qna"])
 
+
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_qna(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
