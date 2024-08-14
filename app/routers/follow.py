@@ -33,6 +33,7 @@ def get_follow(
 
     return crud.get_follow(db, user_id=current_user.id, skip=skip, limit=limit)
 
+
 @router.put("/", status_code=status.HTTP_200_OK)
 def put_follow(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],

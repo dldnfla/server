@@ -5,7 +5,6 @@ from pydantic import BaseModel
 class FollowBase(BaseModel):
     follower: str
     followee: str
-    follow_get: bool
 
 
 class FollowCreate(FollowBase):
@@ -17,6 +16,8 @@ class FollowGet(FollowBase):
 
 
 class FollowEdit(FollowBase):
+    follow_get: bool
+
     class Config:
         orm_mode: True
         from_attributes = True

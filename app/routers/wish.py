@@ -10,12 +10,11 @@ from ..database import get_db
 router = APIRouter(prefix="/wish", tags=["wish"])
 
 
-@router.post("/",status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def create_wish(
     wish: schemas.WishCreate,
     db: Session = Depends(get_db),
 ):
-
     return crud.create_wish(db, wish)
 
 

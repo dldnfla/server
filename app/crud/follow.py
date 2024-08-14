@@ -5,9 +5,8 @@ from .. import models, schemas
 
 def create_follow(db: Session, follow: schemas.FollowCreate):
     db_follow = models.Follow(
-        follower = follow.follower,
-        followee = follow.followee,
-        follow_get = follow.follow_get
+        follower=follow.follower,
+        followee=follow.followee,
     )
     db.add(db_follow)
     db.commit()
@@ -25,8 +24,8 @@ def get_follow(db: Session, user_id: int, skip: int = 0, limit: int = 100):
         .all()
     )
 
+
 def update_follow(db: Session, new_qna: schemas.QnaEdit, user_id: str):
-        
     db_qna = (
         db.query(models.Qna)
         .filter(models.Qna.user_id == user_id)

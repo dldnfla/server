@@ -10,7 +10,7 @@ class WishBase(BaseModel):
 class WishCreate(WishBase):
     pass
 
-class WishEdit(WishBase):
 
+class WishEdit(WishBase):
     class Config:
         orm_mode: True

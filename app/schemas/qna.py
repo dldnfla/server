@@ -20,6 +20,5 @@ class QnaCreate(QnaBase):
 
 
 class QnaEdit(QnaBase):
-
     class Config:
         orm_mode: True
