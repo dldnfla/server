@@ -10,12 +10,12 @@ from ..database import get_db
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
+
 @router.post("/token", response_model=schemas.Token)
 async def login_for_access_token(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
     db: Annotated[Session, Depends(get_db)],
 ):
-    
     current_user = crud.get_user_by_username(db, username=form_data.username)
     user = oauth2.authenticate_user(
         current_user, form_data.username, form_data.password
