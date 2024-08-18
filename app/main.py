@@ -31,4 +31,3 @@ app.include_router(wish.router)
 app.include_router(upload.router)
 app.include_router(mailbox.router)
 app.include_router(youtube.router)
-

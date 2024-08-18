@@ -34,14 +34,12 @@ async def upload(
     filename = f"{str(uuid.uuid4())}.jpg"
     s3_key = f"/{filename}"
 
-
-
     try:
         client.upload_fileobj(file.file, bucket, s3_key)
     except ClientError as e:
         raise HTTPException(status_code=500, detail=f"S3 upload fails: {str(e)}")
 
-    url = "https://%s.s3.ap-northeast-2.amazonaws.com//%s" % (
+    url = "https://%s.s3.ap-northeast-2.amazonaws.com/%s" % (
         bucket,
         s3_key,
     )
@@ -54,13 +52,14 @@ async def upload(
 
     return url
 
+
 @router.get("/download", status_code=status.HTTP_200_OK)
 def download_file(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
-    user_info = crud.get_user_by_username(db,username=current_user.username)
-    
+    user_info = crud.get_user_by_username(db, username=current_user.username)
+
     profile_image = user_info.profile_image
 
     return profile_image
