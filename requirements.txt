@@ -6,6 +6,7 @@ python-jose
 passlib[bcrypt]
 sqlalchemy==1.4.*
 
+boto3
 pytest
 pytest-xdist
 pytest-cov

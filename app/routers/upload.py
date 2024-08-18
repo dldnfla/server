@@ -39,7 +39,7 @@ async def upload(
     except ClientError as e:
         raise HTTPException(status_code=500, detail=f"S3 upload fails: {str(e)}")
 
-    url = "https://%s.s3.ap-northeast-2.amazonaws.com//%s" % (
+    url = "https://%s.s3.ap-northeast-2.amazonaws.com/%s" % (
         bucket,
         s3_key,
     )
