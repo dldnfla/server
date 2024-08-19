@@ -20,13 +20,14 @@ API_KEY = "AIzaSyBL5MLgdM4_o4mdmzhKnDNRwNKpYkfrkAo"
 @router.post("/mymusic", status_code=status.HTTP_201_CREATED)
 def create_my_music(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    music: schemas.UserEdit,
+    music: schemas.MusicCreate,
     db: Session = Depends(get_db),
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
+        
+    return crud.create_music(db, music, user_id=current_user.id)
 
-    return crud.update_user(db, music, user_id=current_user.id)
 
 
 @router.get("/search", status_code=status.HTTP_200_OK)
@@ -64,15 +65,17 @@ async def search_vidieo(
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")
 
 
-@router.get("/mymusic_video/{video_id}", status_code=status.HTTP_200_OK)
+@router.get("/mymusic_video", status_code=status.HTTP_200_OK)
 def get_video(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    video_id: int,
-    skip: int = 0,
-    limit: int = 30,
+    db: Session = Depends(get_db),
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
+    
+
+    mymusic = crud.get_my_music(db, current_user.id)
+
 
     try:
         # YouTube API videos 엔드포인트 URL
@@ -82,8 +85,8 @@ def get_video(
         params = {
             "key": API_KEY,
             "part": "snippet,contentDetails,statistics",  # 원하는 비디오의 정보 유형
-            "id": video_id,
-            "fields": "items(id,snippet,contentDetails,statistics)",  # 필요한 필드만 선택
+            "id": mymusic.music_info,
+            "fields": "items(id,snippet,contentDetails,statistics)"  # 필요한 필드만 선택
         }
 
         # GET 요청을 보내고 응답을 받음
