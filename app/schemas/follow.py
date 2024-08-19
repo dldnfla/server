@@ -16,7 +16,7 @@ class FollowGet(FollowBase):
 
 
 class FollowEdit(FollowBase):
-    follow_get: bool
+    follow_get: bool | None = True
 
     class Config:
         orm_mode: True
