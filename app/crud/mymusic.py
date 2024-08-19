@@ -8,7 +8,7 @@ def get_music(db: Session, user_id: int):
 
 
 def get_my_music(db: Session, user_id: int):
-    db_mymusic = db.query(models.Music).filter(models.Music.user_id == user_id).all()
+    db_mymusic = db.query(models.Music).filter(models.Music.user_id == user_id).first()
 
     return db_mymusic
 
