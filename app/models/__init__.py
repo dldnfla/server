@@ -4,3 +4,4 @@ from .qna import *
 from .wish import *
 from .follow import *
 from .mailbox import *
+from .mymusic import *
