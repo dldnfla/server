@@ -1,6 +1,7 @@
 from typing import Annotated
 from fastapi import Depends, HTTPException
 from sqlalchemy.orm import Session
+import json
 
 from app import oauth2
 
@@ -40,13 +41,13 @@ def get_follow(
         .all()
     )
 
-    following = []
+    following = json.loads(follower_list)
 
-    for t in follower_list:
+    for t in following:
         following = t["followee"]
 
 
-    return follower_list
+    return following
 
 
 def get_follow_request(db: Session, username: str):
