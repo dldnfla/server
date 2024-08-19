@@ -34,14 +34,17 @@ def get_follow(
 ):
     follower_list = (
         db.query(models.Follow)
-        .filter(
-            (models.Follow.follower == username) | (models.Follow.followee == username),
-            models.Follow.follow_get == 1,
-        )
+        .filter(models.Follow.follower == username)
         .offset(skip)
         .limit(limit)
         .all()
     )
+
+    following = []
+
+    for t in follower_list:
+        following = t["followee"]
+
 
     return follower_list
 
