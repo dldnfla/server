@@ -21,7 +21,7 @@ def get_qna(db: Session, user_id: str, skip: int = 0, limit: int = 30):
     )
 
 
-def update_qna(db: Session, new_qna: schemas.QnaEdit, user_id: str):
+def update_qna(db: Session, new_qna: schemas.QnaEdit, user_id: int):
     db_qna = db.query(models.Qna).filter(models.Qna.user_id == user_id).first()
 
     if db_qna is None:
