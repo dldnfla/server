@@ -11,7 +11,7 @@ router = APIRouter(prefix="/search", tags=["search"])
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
-def get_dialog(
+def get_search(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     search_user: str,
     db: Session = Depends(get_db),
