@@ -35,8 +35,8 @@ def get_follow(
     follower_list = (
         db.query(models.Follow)
         .filter(
-            models.Follow.follower == username,
-            models.Follow.follow_get == True,
+            (models.Follow.follower == username) | (models.Follow.followee == username),
+            models.Follow.follow_get == 1,
         )
         .offset(skip)
         .limit(limit)
@@ -61,8 +61,9 @@ def check_follow_request(db: Session, follower: str, followee: str):
 
 def update_follow(db: Session, follow: schemas.FollowEdit, username: str):
     db.query(models.Follow).filter(
-        models.Follow.follower == username, models.Follow.followee == follow.followee
-    ).update(follow.dict(exclude_unset=True))
+        models.Follow.follower == follow.follower,
+        models.Follow.followee == username,
+    ).update(follow.dict())
 
     db.commit()
 

@@ -40,29 +40,24 @@ def get_follow(
     return crud.get_follow(db, username=current_user.username, skip=skip, limit=limit)
 
 
-"""
 @router.put("/", status_code=status.HTTP_200_OK)
 def put_follow(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     follow: schemas.FollowEdit,
     db: Session = Depends(get_db),
-): 
-    
+):
     follower_get = (
         db.query(models.Follow)
         .filter(
             models.Follow.follower == follow.follower,
             models.Follow.followee == current_user.username,
+            models.Follow.follow_get == False,
         )
         .first()
     )
-
-    # 스키마를 int 로 짰는지 str로 짰는지 확인 할 것 
-    # int 로 짯으면 user_id 로 매개변수 이름 통일하고 str로 짰으면 username으로 
 
     # 테이블에 매칭이 되어있는 경우
     if follower_get:
         return crud.update_follow(db, follow, username=current_user.username)
     else:  # 테이블에 매칭이 안되어있을 경우
         raise HTTPException(status_code=404, detail="User not found")
-"""

@@ -2,7 +2,6 @@ from typing import Annotated
 from fastapi import FastAPI, HTTPException, APIRouter, status, Depends
 from fastapi.responses import JSONResponse
 import requests
-import urllib.parse
 from sqlalchemy.orm import Session
 
 from .. import schemas, crud
@@ -26,8 +25,9 @@ def create_my_music(
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-
+    
     return crud.create_music(db, music, user_id=current_user.id)
+
 
 
 @router.get("/search", status_code=status.HTTP_200_OK)
@@ -75,6 +75,7 @@ def get_video(
 
     mymusic = crud.get_my_music(db, current_user.id)
 
+
     try:
         # YouTube API videos 엔드포인트 URL
         api_url = "https://www.googleapis.com/youtube/v3/videos"
@@ -90,16 +91,9 @@ def get_video(
         response = requests.get(api_url, params=params)
         response.raise_for_status()
 
-        youtube_data = response.json()
-
-        custom_response = {
-            "youtube_data": youtube_data,
-            "singer": mymusic.singer,
-            "music_title": mymusic.music_title,
-        }
-
-        return JSONResponse(content=custom_response)
-
+        # JSON 응답 반환
+        return JSONResponse(content=response.json())
+    
     except requests.exceptions.RequestException as e:
         print("예외상황 발생:", str(e))
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")
