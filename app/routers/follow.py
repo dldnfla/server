@@ -16,11 +16,10 @@ def create_follow(
     follow: schemas.FollowCreate,
     db: Session = Depends(get_db),
 ):
-
     follower_get = crud.check_follow_request(
         db, follower=current_user.username, followee=follow.followee
     )
-    
+
     # 테이블에 매칭이 안되어있는 경우
     if not follower_get:
         return crud.create_follow(db, follow)
