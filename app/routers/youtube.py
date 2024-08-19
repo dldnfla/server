@@ -17,7 +17,6 @@ router = APIRouter(prefix="/youtube", tags=["youtube"])
 API_KEY = "AIzaSyBL5MLgdM4_o4mdmzhKnDNRwNKpYkfrkAo"
 
 
-
 @router.post("/mymusic", status_code=status.HTTP_201_CREATED)
 def create_my_music(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
@@ -26,13 +25,13 @@ def create_my_music(
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    
+
     return crud.update_user(db, music, user_id=current_user.id)
 
 
 @router.get("/search", status_code=status.HTTP_200_OK)
 async def search_vidieo(
-    search: str, 
+    search: str,
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
 ):
     if current_user is None:
@@ -50,7 +49,7 @@ async def search_vidieo(
             "maxResults": 2,  # 개수
             "videoEmbeddable": "true",  # 퍼가기 가능한 영상만 가지고 오기
             "fields": "items(id, snippet)",
-            "q": search #검색어
+            "q": search,  # 검색어
         }
 
         # GET 요청을 보내고 응답을 받음
@@ -64,26 +63,27 @@ async def search_vidieo(
         print("예외상황 발생:", str(e))
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")
 
+
 @router.get("/mymusic_video/{video_id}", status_code=status.HTTP_200_OK)
 def get_video(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     video_id: int,
     skip: int = 0,
-    limit: int =30,
+    limit: int = 30,
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    
+
     try:
         # YouTube API videos 엔드포인트 URL
         api_url = "https://www.googleapis.com/youtube/v3/videos"
-        
+
         # API 요청에 필요한 파라미터
         params = {
             "key": API_KEY,
             "part": "snippet,contentDetails,statistics",  # 원하는 비디오의 정보 유형
             "id": video_id,
-            "fields": "items(id,snippet,contentDetails,statistics)"  # 필요한 필드만 선택
+            "fields": "items(id,snippet,contentDetails,statistics)",  # 필요한 필드만 선택
         }
 
         # GET 요청을 보내고 응답을 받음
@@ -92,8 +92,7 @@ def get_video(
 
         # JSON 응답 반환
         return JSONResponse(content=response.json())
-    
+
     except requests.exceptions.RequestException as e:
         print("예외상황 발생:", str(e))
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")
-
