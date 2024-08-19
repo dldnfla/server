@@ -27,12 +27,13 @@ def create_follow(
     # 테이블에 매칭이 되어있을 경우
     if follower_get:
         raise HTTPException(status_code=404, detail="Follow suggestion already sended ")
-    
+
     elif followee_get:
         raise HTTPException(status_code=404, detail="you already requested")
-    
-    else:  # 테이블에 매칭이 안돼있는 경우 
+
+    else:  # 테이블에 매칭이 안돼있는 경우
         return crud.create_follow(db, follow)
+
 
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_follower(

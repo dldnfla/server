@@ -89,9 +89,16 @@ def get_video(
         response = requests.get(api_url, params=params)
         response.raise_for_status()
 
-        # JSON 응답 반환
-        return JSONResponse(content=response.json())
-    
+        youtube_data = response.json()
+
+        custom_response = {
+            "youtube_data": youtube_data,
+            "singer": mymusic.singer,
+            "music_title": mymusic.music_title,
+        }
+
+        return JSONResponse(content=custom_response)
+
     except requests.exceptions.RequestException as e:
         print("예외상황 발생:", str(e))
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")

@@ -47,28 +47,27 @@ def get_follow(
 
 
 def get_follow_request(db: Session, username: str):
-    return db.query(models.Follow).filter(models.Follow.followee == username, models.Follow.follow_get == False).all()
+    return (
+        db.query(models.Follow)
+        .filter(models.Follow.followee == username, models.Follow.follow_get == False)
+        .all()
+    )
 
 
 def check_follow_request(db: Session, follower: str, followee: str):
-    db_follow_request = ( # 이미 팔로우 신청을 건 경우 
+    db_follow_request = (  # 이미 팔로우 신청을 건 경우
         db.query(models.Follow)
-        .filter(
-            models.Follow.follower == follower,
-            models.Follow.followee == followee
-        )
+        .filter(models.Follow.follower == follower, models.Follow.followee == followee)
         .first()
     )
 
     return db_follow_request
-    
+
+
 def check_followee_request(db: Session, follower: str, followee: str):
-    db_follower_request = ( #이미 팔로우 신청을 받은 경우 
+    db_follower_request = (  # 이미 팔로우 신청을 받은 경우
         db.query(models.Follow)
-        .filter(
-            models.Follow.follower == followee,
-            models.Follow.followee == follower
-        )
+        .filter(models.Follow.follower == followee, models.Follow.followee == follower)
         .first()
     )
 
