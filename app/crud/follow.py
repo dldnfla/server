@@ -51,16 +51,28 @@ def get_follow_request(db: Session, username: str):
 
 
 def check_follow_request(db: Session, follower: str, followee: str):
-    db_follow_request = (
+    db_follow_request = ( # 이미 팔로우 신청을 건 경우 
         db.query(models.Follow)
         .filter(
             models.Follow.follower == follower,
-            models.Follow.followee == followee,
+            models.Follow.followee == followee
         )
         .first()
     )
 
     return db_follow_request
+    
+def check_followee_request(db: Session, follower: str, followee: str):
+    db_follower_request = ( #이미 팔로우 신청을 받은 경우 
+        db.query(models.Follow)
+        .filter(
+            models.Follow.follower == followee,
+            models.Follow.followee == follower
+        )
+        .first()
+    )
+
+    return db_follower_request
 
 
 def update_follow(db: Session, follow: schemas.FollowEdit, username: str):

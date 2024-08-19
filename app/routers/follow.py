@@ -20,12 +20,19 @@ def create_follow(
         db, follower=current_user.username, followee=follow.followee
     )
 
-    # 테이블에 매칭이 안되어있는 경우
-    if not follower_get:
-        return crud.create_follow(db, follow)
-    else:  # 테이블에 매칭이 되어있을 경우
-        raise HTTPException(status_code=404, detail="Follow suggestion already sended")
+    followee_get = crud.check_followee_request(
+        db, follower=current_user.username, followee=follow.followee
+    )
 
+    # 테이블에 매칭이 되어있을 경우
+    if follower_get:
+        raise HTTPException(status_code=404, detail="Follow suggestion already sended ")
+    
+    elif followee_get:
+        raise HTTPException(status_code=404, detail="you already requested")
+    
+    else:  # 테이블에 매칭이 안돼있는 경우 
+        return crud.create_follow(db, follow)
 
 @router.get("/", status_code=status.HTTP_200_OK)
 def get_follower(
