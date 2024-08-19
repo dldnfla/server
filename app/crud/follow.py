@@ -46,6 +46,10 @@ def get_follow(
     return follower_list
 
 
+def get_follow_request(db: Session, username: str):
+    return db.query(models.Follow).filter(models.Follow.followee == username, models.Follow.follow_get == False).all()
+
+
 def check_follow_request(db: Session, follower: str, followee: str):
     db_follow_request = (
         db.query(models.Follow)
