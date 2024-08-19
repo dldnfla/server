@@ -8,7 +8,7 @@ def create_music(db: Session, music: schemas.MusicCreate, user_id: int):
         user_id=user_id,
         singer=music.singer,
         music_title=music.music_title,
-        music_info=music.music_info
+        music_info=music.music_info,
     )
 
     db.add(db_music)
@@ -19,11 +19,8 @@ def create_music(db: Session, music: schemas.MusicCreate, user_id: int):
 
 
 def get_music(db: Session, user_id: int):
-    return (
-        db.query(models.Music)
-            .filter(models.Music.user_id == user_id)
-            .first()
-        )
+    return db.query(models.Music).filter(models.Music.user_id == user_id).first()
+
 
 def get_my_music(db: Session, user_id: int):
     db_mymusic = (
@@ -37,17 +34,8 @@ def get_my_music(db: Session, user_id: int):
     return db_mymusic
 
 
-def update_music(
-        db: Session, 
-        new_music: schemas.MusicEdit, 
-        user: schemas.UserGet
-):
-    
-    (
-        db.query(models.Music)
-        .filter(models.Music.id == user.id)
-        .update(new_music.dict())
-    )
+def update_music(db: Session, new_music: schemas.MusicEdit, user: schemas.UserGet):
+    (db.query(models.Music).filter(models.Music.id == user.id).update(new_music.dict()))
 
     db.commit()
 
