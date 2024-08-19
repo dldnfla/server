@@ -16,9 +16,4 @@ def create_wish(db: Session, wish: schemas.WishCreate):
 
 
 def get_wish(db: Session, skip: int = 0, limit: int = 100):
-    return (
-        db.query(models.Wish)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+    return db.query(models.Wish).offset(skip).limit(limit).all()
