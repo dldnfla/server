@@ -16,11 +16,10 @@ def create_follow(
     follow: schemas.FollowCreate,
     db: Session = Depends(get_db),
 ):
-
     follower_get = crud.check_follow_request(
         db, follower=current_user.username, followee=follow.followee
     )
-    
+
     # 테이블에 매칭이 안되어있는 경우
     if not follower_get:
         return crud.create_follow(db, follow)
@@ -41,7 +40,7 @@ def get_follow(
     return crud.get_follow(db, username=current_user.username, skip=skip, limit=limit)
 
 
-"""
+
 @router.put("/", status_code=status.HTTP_200_OK)
 def put_follow(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
@@ -66,4 +65,4 @@ def put_follow(
         return crud.update_follow(db, follow, username=current_user.username)
     else:  # 테이블에 매칭이 안되어있을 경우
         raise HTTPException(status_code=404, detail="User not found")
-"""
+
