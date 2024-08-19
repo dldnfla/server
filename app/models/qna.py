@@ -8,7 +8,7 @@ class Qna(Base):
     __tablename__ = "qna"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True)
-    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     answer1 = Column(String)
     answer2 = Column(String)
     answer3 = Column(String)

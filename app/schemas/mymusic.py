@@ -3,7 +3,6 @@ from pydantic import BaseModel
 
 
 class MusicBase(BaseModel):
-    user_id: int
     singer: str
     music_title: str
     music_info: str
