@@ -25,9 +25,8 @@ def create_my_music(
 ):
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    
-    return crud.create_music(db, music, user_id=current_user.id)
 
+    return crud.create_music(db, music, user_id=current_user.id)
 
 
 @router.get("/search", status_code=status.HTTP_200_OK)
@@ -74,7 +73,6 @@ def get_video(
         raise HTTPException(status_code=404, detail="User not found")
 
     mymusic = crud.get_my_music(db, current_user.id)
-
 
     try:
         # YouTube API videos 엔드포인트 URL

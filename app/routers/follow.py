@@ -20,15 +20,22 @@ def create_follow(
         db, follower=current_user.username, followee=follow.followee
     )
 
-    # 테이블에 매칭이 안되어있는 경우
-    if not follower_get:
-        return crud.create_follow(db, follow)
-    else:  # 테이블에 매칭이 되어있을 경우
-        raise HTTPException(status_code=404, detail="Follow suggestion already sended")
+    followee_get = crud.check_followee_request(
+        db, follower=current_user.username, followee=follow.followee
+    )
 
+    # 테이블에 매칭이 되어있을 경우
+    if follower_get:
+        raise HTTPException(status_code=404, detail="Follow suggestion already sended ")
+    
+    elif followee_get:
+        raise HTTPException(status_code=404, detail="you already requested")
+    
+    else:  # 테이블에 매칭이 안돼있는 경우 
+        return crud.create_follow(db, follow)
 
 @router.get("/", status_code=status.HTTP_200_OK)
-def get_follow(
+def get_follower(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     skip: int = 0,
     limit: int = 30,
@@ -38,6 +45,17 @@ def get_follow(
         raise HTTPException(status_code=404, detail="User not found")
 
     return crud.get_follow(db, username=current_user.username, skip=skip, limit=limit)
+
+
+@router.get("/requests", status_code=status.HTTP_200_OK)
+def get_follow_request(
+    current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
+    db: Session = Depends(get_db),
+):
+    if current_user is None:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    return crud.get_follow_request(db, username=current_user.username)
 
 
 @router.put("/", status_code=status.HTTP_200_OK)
