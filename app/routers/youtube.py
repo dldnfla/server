@@ -18,7 +18,7 @@ router = APIRouter(prefix="/youtube", tags=["youtube"])
 API_KEY = "AIzaSyBL5MLgdM4_o4mdmzhKnDNRwNKpYkfrkAo"
 
 
-@router.post("mymusic", status_code=status.HTTP_201_CREATED)
+@router.post("/mymusic", status_code=status.HTTP_201_CREATED)
 def create_my_music(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     music: schemas.UserEdit,
