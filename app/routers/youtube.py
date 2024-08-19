@@ -2,7 +2,6 @@ from typing import Annotated
 from fastapi import FastAPI, HTTPException, APIRouter, status, Depends
 from fastapi.responses import JSONResponse
 import requests
-import urllib.parse
 from sqlalchemy.orm import Session
 
 from .. import schemas, crud
