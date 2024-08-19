@@ -22,6 +22,8 @@ def get_search(
     result_search = (
         db.query(models.User)
         .filter(models.User.username.ilike(f"{search_user}%"))
+        .offset(0)
+        .limit(10)
         .all()
     )
 
