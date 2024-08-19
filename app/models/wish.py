@@ -11,4 +11,5 @@ class Wish(Base):
     username = Column(String)
     contents = Column(String)
 
-#쓰레기코드
+
+# 쓰레기코드
