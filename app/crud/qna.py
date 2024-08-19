@@ -11,14 +11,8 @@ def create_qna(db: Session, qna: schemas.QnaCreate):
     return db_qna
 
 
-def get_qna(db: Session, user_id: str, skip: int = 0, limit: int = 30):
-    return (
-        db.query(models.Qna)
-        .filter(models.Qna.user_id == user_id)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+def get_qna(db: Session, user_id: int):
+    return db.query(models.Qna).filter(models.Qna.user_id == user_id).all()
 
 
 def update_qna(db: Session, new_qna: schemas.QnaEdit, user_id: int):
