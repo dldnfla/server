@@ -36,6 +36,7 @@ def get_follow(
         db.query(models.Follow)
         .filter(
             models.Follow.follower == username,
+            models.Follow.followee == username,
             models.Follow.follow_get == True,
         )
         .offset(skip)
