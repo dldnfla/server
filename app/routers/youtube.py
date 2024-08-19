@@ -86,13 +86,12 @@ def get_video(
             "fields": "items(id,snippet,contentDetails,statistics)",  # 필요한 필드만 선택
         }
 
-        # GET 요청을 보내고 응답을 받음
         response = requests.get(api_url, params=params)
         response.raise_for_status()
 
         # JSON 응답 반환
         return JSONResponse(content=response.json())
-
+    
     except requests.exceptions.RequestException as e:
         print("예외상황 발생:", str(e))
         raise HTTPException(status_code=500, detail="YouTube API 요청 중 오류 발생")
