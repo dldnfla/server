@@ -31,23 +31,11 @@ def get_follow(
     db: Session,
     username: str,
     skip: int = 0,
-    limit: int = 100,
+    limit: int = 10,
 ):
-    follower_list = (
-        db.query(models.Follow)
-        .filter(models.Follow.follower == username)
-        .offset(skip)
-        .limit(limit)
-        .all()
-    )
+    follower_list = db.query(models.Follow).filter(models.Follow.follower == username).all()
 
-    following = json.loads(follower_list)
-
-    for t in following:
-        following = t["followee"]
-
-
-    return following
+    return follower_list
 
 
 def get_follow_request(db: Session, username: str):
