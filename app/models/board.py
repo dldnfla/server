@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, JSON
 
 from ..database import Base
 
@@ -11,5 +11,6 @@ class Board(Base):
     tag = Column(String)
     title = Column(String)
     contents = Column(String)
-    link = Column(String)
-    images = Column(String)
+    date = Column(String)
+    link = Column(String, nullable=True)
+    images = Column(JSON, nullable=True)
