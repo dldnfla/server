@@ -36,7 +36,7 @@ def update_qna(db: Session, new_qna: schemas.QnaEdit, user_id: int):
             answer7="",
             answer8="",
             answer9="",
-            answer10=""
+            answer10="",
         )
         db.add(db_qna)
         db.commit()
