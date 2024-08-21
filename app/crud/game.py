@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 
-from .. import models, oauth2, schemas
+from .. import models, schemas
 
 
 def update_score(db: Session, new_score: schemas.ScoreCreate):

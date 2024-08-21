@@ -3,20 +3,19 @@ from pydantic import BaseModel
 
 
 class ScoreBase(BaseModel):
-    username: str
-    score: str
+    username:str
 
 
 class ScoreCreate(ScoreBase):
-    pass
-
+    score: int
+    
 
 class ScoreGet(ScoreBase):
     pass
 
 
 class ScoreEdit(ScoreBase):
-    pass
+    score: int
 
     class Config:
         orm_mode: True

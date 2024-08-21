@@ -13,6 +13,7 @@ from .routers import (
     follow,
     youtube,
     search,
+    game
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -43,3 +44,4 @@ app.include_router(mailbox.router)
 app.include_router(follow.router)
 app.include_router(youtube.router)
 app.include_router(search.router)
+app.include_router(game.router)
