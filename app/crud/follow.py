@@ -33,7 +33,9 @@ def get_follow(
     skip: int = 0,
     limit: int = 10,
 ):
-    follower_list = db.query(models.Follow).filter(models.Follow.follower == username).all()
+    follower_list = (
+        db.query(models.Follow).filter(models.Follow.follower == username).all()
+    )
 
     return follower_list
 
