@@ -8,7 +8,7 @@ class BoardBase(BaseModel):
     contents: str
     date: str
     link: Optional[str] = None
-    images: Optional[List[str]] = None
+    images: str
 
 
 class BoardCreate(BoardBase):

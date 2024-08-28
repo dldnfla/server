@@ -11,7 +11,7 @@ router = APIRouter(prefix="/board", tags=["board"])
 
 
 @router.post("/", response_model=schemas.BoardGet, status_code=status.HTTP_201_CREATED)
-def create_board(
+def create_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     board: schemas.BoardCreate,
     db: Session = Depends(get_db),
@@ -24,7 +24,7 @@ def create_board(
 
 # 모든 게시판 불러오기
 @router.get("/", response_model=List[schemas.BoardGet], status_code=status.HTTP_200_OK)
-def get_board_list(
+def get_postlist(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
@@ -38,7 +38,7 @@ def get_board_list(
 @router.get(
     "/{board_id}", response_model=schemas.BoardGet, status_code=status.HTTP_200_OK
 )
-def get_board(
+def get_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     board_id: int,
     db: Session = Depends(get_db),
