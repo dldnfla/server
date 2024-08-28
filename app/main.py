@@ -9,6 +9,7 @@ from .routers import (
     qna,
     wish,
     upload,
+    download,
     mailbox,
     follow,
     youtube,
@@ -39,6 +40,7 @@ app.include_router(user.router)
 app.include_router(dialog.router)
 app.include_router(qna.router)
 app.include_router(upload.router)
+app.include_router(download.router)
 app.include_router(wish.router)
 app.include_router(mailbox.router)
 app.include_router(follow.router)

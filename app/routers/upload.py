@@ -12,7 +12,7 @@ from .. import crud
 from app import oauth2, schemas
 
 
-router = APIRouter(prefix="/file", tags=["file"])
+router = APIRouter(prefix="/upload", tags=["file"])
 
 
 client = boto3.client(
@@ -24,14 +24,14 @@ client = boto3.client(
 bucket = "ewootz-s3-bucket"
 
 
-@router.post("/upload", status_code=status.HTTP_200_OK)
+@router.post("/profileimg", status_code=status.HTTP_200_OK)
 async def upload(
     file: UploadFile,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
     filename = f"{str(uuid.uuid4())}.jpg"
-    s3_key = f"/{filename}"
+    s3_key = f"/profileimg/{filename}"
 
     try:
         client.upload_fileobj(file.file, bucket, s3_key)
@@ -52,14 +52,14 @@ async def upload(
     return url
 
 
-@router.post("/board", status_code=status.HTTP_200_OK)
+@router.post("/posting", status_code=status.HTTP_200_OK)
 async def upload(
     file: UploadFile,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
     filename = f"{str(uuid.uuid4())}.jpg"
-    s3_key = f"/{filename}"
+    s3_key = f"/postingimg{filename}"
 
     try:
         client.upload_fileobj(file.file, bucket, s3_key)
@@ -80,13 +80,3 @@ async def upload(
     return url
 
 
-@router.get("/download", status_code=status.HTTP_200_OK)
-def download_file(
-    current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    db: Session = Depends(get_db),
-):
-    user_info = crud.get_user_by_username(db, username=current_user.username)
-
-    profile_image = user_info.profile_image
-
-    return profile_image
