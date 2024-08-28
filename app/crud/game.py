@@ -7,27 +7,30 @@ def update_score(db: Session, new_score: schemas.ScoreCreate):
     db_score = get_score(db, username=new_score.username)
 
     if db_score is None:
-        create_score(db, username=new_score.username, score=new_score.score)
+        create_score(db, username=new_score.username, score=new_score)
 
-    db.query(models.Score).filter(models.User.username == new_score.username).update(
+    db.query(models.Score).filter(models.Score.username == new_score.username).update(
         new_score.dict(exclude_unset=True)
     )
     db.commit()
     ...
 
 
-def get_scorelist(db: Session):
-    return (
+def get_scorelist(db: Session, username: str):
+    scorelist = (
         db.query(models.User.fullname, models.Score.score)
         .join(models.Score, models.User.username == models.Score.username)
+        .filter(models.Score.username == username)
         .order_by(models.Score.score)
         .limit(5)
         .all()
     )
 
+    return scorelist
+
 
 def get_score(db: Session, username: str):
-    return db.query(models.Score).filter(models.User.name == username).first()
+    return db.query(models.Score).filter(models.Score.username == username).all()
 
 
 def create_score(db: Session, score: schemas.ScoreCreate):
@@ -35,6 +38,7 @@ def create_score(db: Session, score: schemas.ScoreCreate):
     db.add(db_score)
     db.commit()
     db.refresh(db_score)
+
     return db_score
 
     ...

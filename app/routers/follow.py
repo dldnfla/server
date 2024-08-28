@@ -16,7 +16,6 @@ def create_follow(
     follow: schemas.FollowCreate,
     db: Session = Depends(get_db),
 ):
-
     followee_get = crud.check_follow_request(
         db, follower=current_user.username, followee=follow.followee
     )

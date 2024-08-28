@@ -13,7 +13,7 @@ from .routers import (
     follow,
     youtube,
     search,
-    game
+    game,
 )
 from fastapi.middleware.cors import CORSMiddleware
 

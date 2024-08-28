@@ -3,12 +3,12 @@ from pydantic import BaseModel
 
 
 class ScoreBase(BaseModel):
-    username:str
+    username: str
 
 
 class ScoreCreate(ScoreBase):
     score: int
-    
+
 
 class ScoreGet(ScoreBase):
     pass
