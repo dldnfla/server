@@ -10,43 +10,37 @@ from ..database import get_db
 router = APIRouter(prefix="/board", tags=["board"])
 
 
-@router.post("/", response_model=schemas.BoardGet, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=schemas.PostGet, status_code=status.HTTP_201_CREATED)
 def create_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    board: schemas.BoardCreate,
+    post: schemas.PostCreate,
     db: Session = Depends(get_db),
 ):
-    if current_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
 
-    return crud.create_board(db, board, user_id=current_user.id)
+    return crud.create_post(db, post, user_id=current_user.id)
 
 
 # 모든 게시판 불러오기
-@router.get("/", response_model=List[schemas.BoardGet], status_code=status.HTTP_200_OK)
+@router.get("/", response_model=List[schemas.PostGet], status_code=status.HTTP_200_OK)
 def get_postlist(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
-    if current_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
 
-    return crud.get_all_boards(db)
+    return crud.get_all_posts(db)
 
 
 # 목록에서 눌럿을 때 하나만 받아오는 거
 @router.get(
-    "/{board_id}", response_model=schemas.BoardGet, status_code=status.HTTP_200_OK
+    "/{post_id}", response_model=schemas.PostGet, status_code=status.HTTP_200_OK
 )
 def get_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
-    board_id: int,
+    post_id: int,
     db: Session = Depends(get_db),
 ):
-    if current_user is None:
-        raise HTTPException(status_code=404, detail="User not found")
 
-    return crud.get_board(db, board_id=board_id)
+    return crud.get_post(db, post_id=post_id)
 
 
 # 태그별 게시글 목록 가지고 오기

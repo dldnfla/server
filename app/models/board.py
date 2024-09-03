@@ -13,4 +13,4 @@ class Board(Base):
     contents = Column(String)
     date = Column(String)
     link = Column(String, nullable=True)
-    image = Column(JSON, nullable=True)
+    image = Column(String, nullable=True)

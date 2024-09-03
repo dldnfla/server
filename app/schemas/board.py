@@ -2,24 +2,23 @@ from typing import List, Optional
 from pydantic import BaseModel
 
 
-class BoardBase(BaseModel):
+class PostBase(BaseModel):
     tag: str
     title: str
     contents: str
     date: str
     link: Optional[str] = None
-    images: str
 
 
-class BoardCreate(BoardBase):
+class PostCreate(PostBase):
     pass
 
 
-class BoardGet(BoardBase):
+class PostGet(PostBase):
     id: int
 
 
-class BoardEdit(BoardBase):
+class PostEdit(PostBase):
     class Config:
         orm_mode: True
         from_attributes = True
