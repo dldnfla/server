@@ -24,7 +24,7 @@ client = boto3.client(
 bucket = "ewootz-s3-bucket"
 
 
-@router.post("/profileimg", status_code=status.HTTP_200_OK)
+@router.post("/profile", status_code=status.HTTP_200_OK)
 async def upload(
     file: UploadFile,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
