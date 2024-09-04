@@ -26,3 +26,7 @@ def get_all_posts(db: Session):
 
 def get_post(db: Session, post_id: int):
     return db.query(models.Board).filter(models.Board.id == post_id).first()
+
+
+def get_post_tag(db: Session, tag: str):
+    return db.query(models.Board).filter(models.Board.tag == tag).all()
