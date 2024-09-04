@@ -16,19 +16,11 @@ def create_follow(
     follow: schemas.FollowCreate,
     db: Session = Depends(get_db),
 ):
-    follower_get = crud.check_follow_request(
+    followee_get = crud.check_follow_request(
         db, follower=current_user.username, followee=follow.followee
     )
 
-    followee_get = crud.check_followee_request(
-        db, follower=current_user.username, followee=follow.followee
-    )
-
-    # 테이블에 매칭이 되어있을 경우
-    if follower_get:
-        raise HTTPException(status_code=404, detail="Follow suggestion already sended ")
-
-    elif followee_get:
+    if followee_get:
         raise HTTPException(status_code=404, detail="you already requested")
 
     else:  # 테이블에 매칭이 안돼있는 경우

@@ -9,10 +9,13 @@ from .routers import (
     qna,
     wish,
     upload,
+    download,
     mailbox,
     follow,
     youtube,
     search,
+    board,
+    game,
 )
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -38,8 +41,11 @@ app.include_router(user.router)
 app.include_router(dialog.router)
 app.include_router(qna.router)
 app.include_router(upload.router)
+app.include_router(download.router)
 app.include_router(wish.router)
 app.include_router(mailbox.router)
 app.include_router(follow.router)
 app.include_router(youtube.router)
 app.include_router(search.router)
+app.include_router(board.router)
+app.include_router(game.router)

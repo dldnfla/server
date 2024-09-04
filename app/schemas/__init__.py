@@ -5,3 +5,5 @@ from .wish import *
 from .follow import *
 from .mailbox import *
 from .mymusic import *
+from .board import *
+from .game import *
