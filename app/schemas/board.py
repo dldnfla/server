@@ -8,6 +8,7 @@ class PostBase(BaseModel):
     contents: str
     date: str
     link: str | None = None
+    image: str | None = None
 
 
 class PostCreate(PostBase):

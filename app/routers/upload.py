@@ -78,5 +78,3 @@ async def upload(
     crud.update_user(db, new_user, current_user)
 
     return url
-
-

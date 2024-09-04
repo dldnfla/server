@@ -16,7 +16,6 @@ def create_post(
     post: schemas.PostCreate,
     db: Session = Depends(get_db),
 ):
-
     return crud.create_post(db, post, username=current_user.username)
 
 
@@ -26,7 +25,6 @@ def get_postlist(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
-
     return crud.get_all_posts(db)
 
 
@@ -39,7 +37,6 @@ def get_post(
     post_id: int,
     db: Session = Depends(get_db),
 ):
-
     return crud.get_post(db, post_id=post_id)
 
 
