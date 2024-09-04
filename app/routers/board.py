@@ -10,18 +10,18 @@ from ..database import get_db
 router = APIRouter(prefix="/board", tags=["board"])
 
 
-@router.post("/", response_model=schemas.PostGet, status_code=status.HTTP_201_CREATED)
+@router.post("/", status_code=status.HTTP_201_CREATED)
 def create_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     post: schemas.PostCreate,
     db: Session = Depends(get_db),
 ):
 
-    return crud.create_post(db, post, user_id=current_user.id)
+    return crud.create_post(db, post, username=current_user.username)
 
 
 # 모든 게시판 불러오기
-@router.get("/", response_model=List[schemas.PostGet], status_code=status.HTTP_200_OK)
+@router.get("/", status_code=status.HTTP_200_OK)
 def get_postlist(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),

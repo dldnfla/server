@@ -3,14 +3,14 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 
 
-def create_post(db: Session, post: schemas.PostCreate, user_id=int):
+def create_post(db: Session, post: schemas.PostCreate, username:str):
     db_post = models.Board(
+        username=username,
         tag=post.tag,
         title=post.title,
         contents=post.contents,
         date=post.date,
         link=post.link,
-        user_id=user_id,
     )
     db.add(db_post)
     db.commit()

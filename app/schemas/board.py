@@ -7,7 +7,7 @@ class PostBase(BaseModel):
     title: str
     contents: str
     date: str
-    link: Optional[str] = None
+    link: str | None = None
 
 
 class PostCreate(PostBase):

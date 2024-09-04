@@ -7,7 +7,7 @@ class Board(Base):
     __tablename__ = "board"
 
     id = Column(Integer, primary_key=True, nullable=False, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    username = Column(String, ForeignKey("users.username"), nullable=False)
     tag = Column(String)
     title = Column(String)
     contents = Column(String)
