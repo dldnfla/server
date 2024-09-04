@@ -23,6 +23,7 @@ client = boto3.client(
 
 bucket = "ewootz-s3-bucket"
 
+
 @router.get("/profileimg", status_code=status.HTTP_200_OK)
 def download_file(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
@@ -35,7 +36,6 @@ def download_file(
     return profile_image
 
 
-
 @router.get("/postingimg", status_code=status.HTTP_200_OK)
 def download_file(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
@@ -46,4 +46,3 @@ def download_file(
     profile_image = user_info.profile_image
 
     return profile_image
-

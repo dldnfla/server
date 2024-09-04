@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 
 
-def create_post(db: Session, post: schemas.PostCreate, username:str):
+def create_post(db: Session, post: schemas.PostCreate, username: str):
     db_post = models.Board(
         username=username,
         tag=post.tag,
