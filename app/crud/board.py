@@ -6,7 +6,7 @@ from .. import models, schemas
 def create_post(db: Session, post: schemas.PostCreate, username: str):
     db_post = models.Board(
         username=username,
-        tag=post.tag,
+        category=post.category,
         title=post.title,
         contents=post.contents,
         date=post.date,
@@ -28,5 +28,16 @@ def get_post(db: Session, post_id: int):
     return db.query(models.Board).filter(models.Board.id == post_id).first()
 
 
-def get_post_tag(db: Session, tag: str):
-    return db.query(models.Board).filter(models.Board.tag == tag).all()
+def get_post_category(db: Session, category: str):
+    return db.query(models.Board).filter(models.Board.category == category).all()
+
+def update_post(db: Session, new_post: schemas.PostEdit,post_id):
+    db_post = (
+        db.query(models.Board)
+        .filter(models.Board.id == post_id)
+        .update(new_post.model_dump())
+    )
+
+    db.commit()
+
+    return db_post

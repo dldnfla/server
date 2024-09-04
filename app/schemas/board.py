@@ -3,7 +3,7 @@ from pydantic import BaseModel
 
 
 class PostBase(BaseModel):
-    tag: str
+    category: str
     title: str
     contents: str
     date: str
@@ -19,7 +19,13 @@ class PostGet(PostBase):
     id: int
 
 
-class PostEdit(PostBase):
+class PostEdit(BaseModel):
+    category: str | None = None
+    title: str | None = None
+    contents: str | None = None
+    date: str | None = None
+    link: str | None = None
+    image: str | None = None
     class Config:
         orm_mode: True
         from_attributes = True

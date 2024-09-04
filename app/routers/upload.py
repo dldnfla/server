@@ -55,11 +55,12 @@ async def upload(
 @router.post("/posting", status_code=status.HTTP_200_OK)
 async def upload(
     file: UploadFile,
+    post_id: int,
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
     filename = f"{str(uuid.uuid4())}.jpg"
-    s3_key = f"/postingimg{filename}"
+    s3_key = f"/postingimg/{filename}"
 
     try:
         client.upload_fileobj(file.file, bucket, s3_key)
@@ -71,10 +72,10 @@ async def upload(
         s3_key,
     )
 
-    new_user = schemas.UserEdit(
-        profile_image=url,
+    new_post = schemas.PostEdit(
+        image=url,
     )
 
-    crud.update_user(db, new_user, current_user)
+    crud.update_post(db, new_post, post_id=post_id)
 
     return url
