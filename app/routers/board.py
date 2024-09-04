@@ -77,7 +77,7 @@ def get_post(
 
     result_search = (
         db.query(models.Board)
-        .filter(models.Board.title.like(f"{title}%"))
+        .filter(models.Board.title.like(f"%{title}%"))
         .offset(0)
         .limit(10)
         .all()
