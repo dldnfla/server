@@ -17,7 +17,7 @@ def update_score(
     db: Session = Depends(get_db),
 ):
     new_score.username = current_user.username
-    return crud.update_score(db, score=new_score)
+    return crud.update_score(db, new_score)
 
 
 @router.get("/", status_code=status.HTTP_200_OK)

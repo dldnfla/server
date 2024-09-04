@@ -16,6 +16,7 @@ def create_post(
     post: schemas.PostCreate,
     db: Session = Depends(get_db),
 ):
+
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -28,6 +29,7 @@ def get_postlist(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):
+
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -43,6 +45,7 @@ def get_post(
     post_id: int,
     db: Session = Depends(get_db),
 ):
+
     if current_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
