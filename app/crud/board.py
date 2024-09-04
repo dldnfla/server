@@ -31,11 +31,11 @@ def get_post(db: Session, post_id: int):
 def get_post_category(db: Session, category: str):
     return db.query(models.Board).filter(models.Board.category == category).all()
 
-def update_post(db: Session, new_post: schemas.PostEdit,post_id):
+def update_post(db: Session, new_post: str,post_id):
     db_post = (
         db.query(models.Board)
         .filter(models.Board.id == post_id)
-        .update(new_post.model_dump())
+        .update( {"image": new_post})
     )
 
     db.commit()
