@@ -6,9 +6,9 @@ from .. import models, schemas
 def update_score(db: Session, new_score: schemas.ScoreCreate):
     db_score = get_score(db, username=new_score.username)
 
+    
     if db_score is None:
         create_score(db, score=new_score)
-
     else:
         db.query(models.Score).filter(
             models.Score.username == new_score.username
