@@ -6,7 +6,6 @@ from .. import models, schemas
 def update_score(db: Session, new_score: schemas.ScoreCreate,username:str):
     db_score = get_score(db, username=username)
 
-    
     if db_score is None:
         create_score(db, score=new_score,username = username)
         
@@ -25,7 +24,6 @@ def get_scorelist(db: Session, username: str):
     scorelist = (
         db.query(models.User.fullname, models.Score.score)
         .join(models.Score, models.User.username == models.Score.username)
-        .filter(models.Score.username == username)
         .order_by(models.Score.score)
         .limit(5)
         .all()

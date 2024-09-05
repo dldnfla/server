@@ -25,3 +25,10 @@ def get_scorelist(
     db: Session = Depends(get_db),
 ):
     return crud.get_scorelist(db, username=current_user.username)
+
+@router.get("/me", status_code=status.HTTP_200_OK)
+def get_scorelist(
+    current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
+    db: Session = Depends(get_db),
+):
+    return crud.get_score(db, username=current_user.username)
