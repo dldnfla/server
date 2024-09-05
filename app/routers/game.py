@@ -16,7 +16,7 @@ def update_score(
     new_score: schemas.ScoreCreate,
     db: Session = Depends(get_db),
 ):
-    return crud.update_score(db, new_score,username=current_user.username)
+    return crud.update_score(db, new_score, username=current_user.username)
 
 
 @router.get("/", status_code=status.HTTP_200_OK)
@@ -26,8 +26,9 @@ def get_scorelist(
 ):
     return crud.get_scorelist(db, username=current_user.username)
 
+
 @router.get("/me", status_code=status.HTTP_200_OK)
-def get_scorelist(
+def get_score(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     db: Session = Depends(get_db),
 ):

@@ -26,6 +26,7 @@ class PostEdit(BaseModel):
     date: str | None = None
     link: str | None = None
     image: str | None = None
+
     class Config:
         orm_mode: True
         from_attributes = True
