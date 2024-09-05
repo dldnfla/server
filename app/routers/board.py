@@ -32,15 +32,12 @@ def get_postlist(
 
 
 # 목록에서 눌럿을 때 하나만 받아오는 거
-@router.get(
-    "/{post_id}", response_model=schemas.PostGet, status_code=status.HTTP_200_OK
-)
+@router.get("/{post_id}", status_code=status.HTTP_200_OK)
 def get_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     post_id: int,
     db: Session = Depends(get_db),
 ):
-
     return crud.get_post(db, post_id=post_id)
 
 
@@ -53,13 +50,14 @@ def get_post(
 ):
     return crud.get_post_category(db, category=category)
 
+
 @router.get("/location/{location}", status_code=status.HTTP_200_OK)
 def get_post_by_location(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     location: str,
     db: Session = Depends(get_db),
 ):
-    return crud.get_post_by_location(db,location)
+    return crud.get_post_by_location(db, location)
 
 
 # 제목 검색
