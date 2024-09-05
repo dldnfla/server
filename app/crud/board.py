@@ -57,7 +57,7 @@ def update_post(db: Session, new_post: str, post_id):
     return db_post
 
 def get_post_by_location(db: Session, location: str):
-    valid_locations = ["서울", "강릉", "제주", "부산", "대구", "대전"]
+    valid_locations = ["서울", "강릉", "제주", "부산", "대구", "대전", "기타"]
     
     if location in valid_locations:
         return db.query(models.Board).filter(models.Board.location == location).all()
