@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 class PostBase(BaseModel):
     category: str
+    location: str | None = None
     title: str
     contents: str
     date: str
@@ -21,6 +22,7 @@ class PostGet(PostBase):
 
 class PostEdit(BaseModel):
     category: str | None = None
+    location: str | None = None
     title: str | None = None
     contents: str | None = None
     date: str | None = None

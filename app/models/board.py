@@ -9,6 +9,7 @@ class Board(Base):
     id = Column(Integer, primary_key=True, nullable=False, index=True)
     username = Column(String, ForeignKey("users.username"), nullable=False)
     category = Column(String)
+    location = Column(String, nullable=True)
     title = Column(String)
     contents = Column(String)
     date = Column(String)
