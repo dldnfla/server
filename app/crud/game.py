@@ -3,17 +3,21 @@ from sqlalchemy.orm import Session
 from .. import models, schemas
 
 
-def update_score(db: Session, new_score: schemas.ScoreCreate):
-    db_score = get_score(db, username=new_score.username)
+def update_score(db: Session, new_score: schemas.ScoreCreate,username:str):
+    db_score = get_score(db, username=username)
 
     
     if db_score is None:
-        create_score(db, score=new_score)
+        create_score(db, score=new_score,username = username)
+        
     else:
         db.query(models.Score).filter(
-            models.Score.username == new_score.username
-        ).update(new_score.dict())
+            models.Score.username == username
+        ).update({"score": new_score.score})
         db.commit()
+
+    return get_score(db,username=username)
+
     ...
 
 
@@ -31,11 +35,11 @@ def get_scorelist(db: Session, username: str):
 
 
 def get_score(db: Session, username: str):
-    return db.query(models.Score).filter(models.Score.username == username).all()
+    return db.query(models.Score).filter(models.Score.username == username).first()
 
 
-def create_score(db: Session, score: schemas.ScoreCreate):
-    db_score = models.Score(username=score.username, score=score.score)
+def create_score(db: Session, score: schemas.ScoreCreate, username: str):
+    db_score = models.Score(username=username, score=score.score)
     db.add(db_score)
     db.commit()
     db.refresh(db_score)
