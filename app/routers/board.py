@@ -53,6 +53,14 @@ def get_post(
 ):
     return crud.get_post_category(db, category=category)
 
+@router.get("/location/{location}", status_code=status.HTTP_200_OK)
+def get_post_by_location(
+    current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
+    location: str,
+    db: Session = Depends(get_db),
+):
+    return crud.get_post_by_location(db,location)
+
 
 # 제목 검색
 @router.get("/search/{title}", status_code=status.HTTP_200_OK)

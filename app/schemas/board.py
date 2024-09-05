@@ -18,6 +18,7 @@ class PostCreate(PostBase):
 
 class PostGet(PostBase):
     id: int
+    views: int
 
 
 class PostEdit(BaseModel):

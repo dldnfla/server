@@ -37,7 +37,12 @@ def get_post(db: Session, post_id: int):
 
 
 def get_post_category(db: Session, category: str):
-    return db.query(models.Board).filter(models.Board.category == category).all()
+    valid_categories = ["일상", "맛집"]
+    
+    if category in valid_categories:
+        return db.query(models.Board).filter(models.Board.category == category).all()
+    else:
+        return []
 
 
 def update_post(db: Session, new_post: str, post_id):
@@ -50,3 +55,12 @@ def update_post(db: Session, new_post: str, post_id):
     db.commit()
 
     return db_post
+
+def get_post_by_location(db: Session, location: str):
+    valid_locations = ["서울", "강릉", "제주", "부산", "대구", "대전"]
+    
+    if location in valid_locations:
+        return db.query(models.Board).filter(models.Board.location == location).all()
+    else:
+        return []
+    
