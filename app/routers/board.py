@@ -45,7 +45,7 @@ def get_post(
 
 
 # 태그별 게시글 목록 가지고 오기
-@router.get("/tag/{category}", status_code=status.HTTP_200_OK)
+@router.get("/category/{category}", status_code=status.HTTP_200_OK)
 def get_post(
     current_user: Annotated[schemas.UserAuth, Depends(oauth2.get_authenticated_user)],
     category: str,
