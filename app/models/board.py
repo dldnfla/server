@@ -14,3 +14,4 @@ class Board(Base):
     date = Column(String)
     link = Column(String, nullable=True)
     image = Column(String, nullable=True)
+    views = Column(Integer, default=0)

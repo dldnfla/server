@@ -25,7 +25,14 @@ def get_all_posts(db: Session):
 
 
 def get_post(db: Session, post_id: int):
-    return db.query(models.Board).filter(models.Board.id == post_id).first()
+    post = db.query(models.Board).filter(models.Board.id == post_id).first()
+
+    if post:
+        post.views += 1
+        db.commit()
+        db.refresh(post)
+        return post
+    return None
 
 
 def get_post_category(db: Session, category: str):
