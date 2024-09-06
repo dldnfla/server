@@ -52,11 +52,10 @@ async def upload(
     return url
 
 
-@router.post("/posting/{post_id}", status_code=status.HTTP_200_OK)
+@router.post("/posting", status_code=status.HTTP_200_OK)
 async def upload(
     current_user: Annotated[schemas.UserGet, Depends(oauth2.get_authenticated_user)],
     file: UploadFile,
-    post_id=int,
     db: Session = Depends(get_db),
 ):
     filename = f"{str(uuid.uuid4())}.jpg"
@@ -71,7 +70,5 @@ async def upload(
         bucket,
         s3_key,
     )
-
-    crud.update_post(db, new_post=url, post_id=post_id)
 
     return url
