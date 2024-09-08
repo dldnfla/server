@@ -46,7 +46,7 @@ async def search_vidieo(
             "key": API_KEY,
             "part": "snippet",  # id, snippet 있는데 대부분의 정보가 snippet에 잇음ㅁ
             "type": "video",  # 채널, 플레이리스트, 영상 등 받아올 정보 타입?
-            "maxResults": 2,  # 개수
+            "maxResults": 10,  # 개수
             "videoEmbeddable": "true",  # 퍼가기 가능한 영상만 가지고 오기
             "fields": "items(id, snippet)",
             "q": search,  # 검색어
