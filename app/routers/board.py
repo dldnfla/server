@@ -67,12 +67,4 @@ def get_post(
     title: str,
     db: Session = Depends(get_db),
 ):
-    result_search = (
-        db.query(models.Board)
-        .filter(models.Board.title.like(f"%{title}%"))
-        .offset(0)
-        .limit(10)
-        .all()
-    )
-
-    return result_search
+    return crud.search_posts(db,title)

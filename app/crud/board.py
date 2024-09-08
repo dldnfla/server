@@ -111,3 +111,20 @@ def update_post(db: Session, new_post: str, post_id):
     db.commit()
 
     return db_post
+
+def search_posts(db: Session, title: str):
+    posts = (
+        db.query(models.Board, models.User.fullname)
+        .join(models.User, models.User.username == models.Board.username)
+        .filter(models.Board.title.like(f"%{title}%"))
+        .offset(0)
+        .limit(10)
+        .all()
+    )
+
+    result = []
+    for board, fullname in posts:
+        board.username = fullname  
+        result.append(board)
+
+    return result
