@@ -1,7 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
+from starlette.config import Config
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./sqlite.db"
+config = Config('.env')
+SQLALCHEMY_DATABASE_URL = config('SQLALCHEMY_DATABASE_URL')
 
 engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
