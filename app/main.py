@@ -18,6 +18,8 @@ from .routers import (
     game,
 )
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import FileResponse
+from starlette.staticfiles import StaticFiles
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -35,7 +37,11 @@ app.add_middleware(
     allow_headers=["*"],  # 모든 HTTP 헤더 허용
 )
 
+@app.get("/")
+def index():
+    return FileResponse("/Users/leewoorim/Desktop/client/build/index.html")
 
+app.mount("/static", StaticFiles(directory="/Users/leewoorim/Desktop/client/build/static"))
 app.include_router(auth.router)
 app.include_router(user.router)
 app.include_router(dialog.router)
