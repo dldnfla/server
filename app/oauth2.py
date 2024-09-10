@@ -13,10 +13,10 @@ from .database import get_db
 from starlette.config import Config
 
 
-config = Config('.env')
+config = Config(".env")
 
-ACCESS_TOKEN_EXPIRE_MINUTES = int(config('ACCESS_TOKEN_EXPIRE_MINUTES'))
-SECRET_KEY = config('SECRET_KEY')
+ACCESS_TOKEN_EXPIRE_MINUTES = int(config("ACCESS_TOKEN_EXPIRE_MINUTES"))
+SECRET_KEY = config("SECRET_KEY")
 ALGORITHM = "HS256"
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")

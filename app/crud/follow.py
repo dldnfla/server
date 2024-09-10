@@ -30,11 +30,9 @@ def create_follow(db: Session, follow: schemas.FollowCreate):
 def get_follow(
     db: Session,
     username: str,
-    skip: int = 0,
-    limit: int = 10,
 ):
     follower_list = (
-        db.query(models.User.fullname)
+        db.query(models.User.fullname, models.User.username)
         .join(models.Follow, models.User.username == models.Follow.followee)
         .filter(models.Follow.follower == username)
         .all()

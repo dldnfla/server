@@ -67,4 +67,4 @@ def get_post(
     title: str,
     db: Session = Depends(get_db),
 ):
-    return crud.search_posts(db,title)
+    return crud.search_posts(db, title)

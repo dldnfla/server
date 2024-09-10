@@ -50,14 +50,14 @@ def get_post(db: Session, post_id: int):
             .filter(models.Board.id == post_id)
             .first()
         )
-        
-        #first -> 단일객체 : 반복문 불가
+
+        # first -> 단일객체 : 반복문 불가
         if post:
-            board, fullname = post 
-            board.username = fullname  
+            board, fullname = post
+            board.username = fullname
             return board
 
-    return None  
+    return None
 
 
 def get_post_category(db: Session, category: str):
@@ -112,6 +112,7 @@ def update_post(db: Session, new_post: str, post_id):
 
     return db_post
 
+
 def search_posts(db: Session, title: str):
     posts = (
         db.query(models.Board, models.User.fullname)
@@ -124,7 +125,7 @@ def search_posts(db: Session, title: str):
 
     result = []
     for board, fullname in posts:
-        board.username = fullname  
+        board.username = fullname
         result.append(board)
 
     return result
