@@ -7,7 +7,7 @@ from app import oauth2
 from .. import crud, schemas, models
 from ..database import get_db
 
-router = APIRouter(prefix="/score", tags=["game"])
+router = APIRouter(prefix="/api/score", tags=["game"])
 
 
 @router.put("/", status_code=status.HTTP_201_CREATED)

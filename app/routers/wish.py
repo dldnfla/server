@@ -8,7 +8,7 @@ from app import oauth2
 from .. import crud, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/wish", tags=["wish"])
+router = APIRouter(prefix="/api/wish", tags=["wish"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

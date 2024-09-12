@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from .. import crud, oauth2, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/users", tags=["users"])
+router = APIRouter(prefix="/api/users", tags=["users"])
 
 
 @router.post(

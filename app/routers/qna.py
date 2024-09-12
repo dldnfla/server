@@ -7,7 +7,7 @@ from app import oauth2
 from .. import crud, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/qna", tags=["qna"])
+router = APIRouter(prefix="/api/qna", tags=["qna"])
 
 
 @router.get("/", status_code=status.HTTP_200_OK)

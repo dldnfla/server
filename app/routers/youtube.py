@@ -11,7 +11,7 @@ from ..database import get_db
 
 app = FastAPI()
 
-router = APIRouter(prefix="/youtube", tags=["youtube"])
+router = APIRouter(prefix="/api/youtube", tags=["youtube"])
 
 
 API_KEY = "AIzaSyBL5MLgdM4_o4mdmzhKnDNRwNKpYkfrkAo"

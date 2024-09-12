@@ -7,7 +7,7 @@ from app import oauth2
 from .. import crud, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/dialog", tags=["dialog"])
+router = APIRouter(prefix="/api/dialog", tags=["dialog"])
 
 
 @router.post("/", response_model=schemas.DialogGet, status_code=status.HTTP_201_CREATED)

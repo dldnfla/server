@@ -7,7 +7,7 @@ from app import oauth2
 from .. import crud, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/mailbox", tags=["mailbox"])
+router = APIRouter(prefix="/api/mailbox", tags=["mailbox"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)

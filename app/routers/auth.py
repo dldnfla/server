@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from .. import crud, oauth2, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/auth", tags=["auth"])
+router = APIRouter(prefix="/api/auth", tags=["auth"])
 
 
 @router.post("/token", response_model=schemas.Token)

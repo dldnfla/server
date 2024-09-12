@@ -7,7 +7,7 @@ from app import oauth2
 from .. import models, schemas
 from ..database import get_db
 
-router = APIRouter(prefix="/search", tags=["search"])
+router = APIRouter(prefix="/api/search", tags=["search"])
 
 
 @router.get("/", status_code=status.HTTP_200_OK)

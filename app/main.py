@@ -26,12 +26,12 @@ models.Base.metadata.create_all(bind=engine)
 app = FastAPI()
 
 origins = [
-    "http://ewootz.site:3000/",
+    "http://ewootz.site:3000",
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://ewootz.site:3000/"],  # 클라이언트의 URL
+    allow_origins=["http://ewootz.site:3000"],  # 클라이언트의 URL
     allow_credentials=True,
     allow_methods=["*"],  # 모든 HTTP 메소드 허용
     allow_headers=["*"],  # 모든 HTTP 헤더 허용
@@ -44,7 +44,7 @@ def index():
 
 
 app.mount(
-    "/static", StaticFiles(directory="/Users/leewoorim/Desktop/client/build/static")
+    "/static", StaticFiles(directory="/home/ubuntu/client/build/static")
 )
 
 app.include_router(auth.router)

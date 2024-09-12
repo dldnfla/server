@@ -7,7 +7,7 @@ from app import oauth2
 from .. import crud, schemas, models
 from ..database import get_db
 
-router = APIRouter(prefix="/follow", tags=["follow"])
+router = APIRouter(prefix="/api/follow", tags=["follow"])
 
 
 @router.post("/", status_code=status.HTTP_201_CREATED)
