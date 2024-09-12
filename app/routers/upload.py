@@ -12,7 +12,7 @@ from .. import crud
 from app import oauth2, schemas
 
 
-router = APIRouter(prefix="/upload", tags=["file"])
+router = APIRouter(prefix="/api/upload", tags=["file"])
 
 
 client = boto3.client(
