@@ -7,3 +7,4 @@ from .mailbox import *
 from .mymusic import *
 from .board import *
 from .game import *
+from .youtube import *

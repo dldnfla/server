@@ -43,9 +43,7 @@ def index():
     return FileResponse("/home/ubuntu/client/build/index.html")
 
 
-app.mount(
-    "/static", StaticFiles(directory="/home/ubuntu/client/build/static")
-)
+app.mount("/static", StaticFiles(directory="/home/ubuntu/client/build/static"))
 
 app.include_router(auth.router)
 app.include_router(user.router)

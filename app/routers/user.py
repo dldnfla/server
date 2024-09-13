@@ -56,6 +56,23 @@ def get_user(
     return current_user
 
 
+@router.get("/redirection")
+def get_redirection_page(username: str, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_username(db, username)
+    db_user_dialog = crud.get_dialog(db, db_user.id)
+    db_user_following = crud.get_follow(db, username)
+    db_user_get_qna = crud.get_qna(db, db_user.id)
+    db_user_game = crud.get_scorelist(db, username)
+
+    return {
+        "user": db_user,
+        "dialog": db_user_dialog,
+        "following": db_user_following,
+        "qna": db_user_get_qna,
+        "game_scores": db_user_game,
+    }
+
+
 @router.put("/update", response_model=schemas.UserGet)
 def update_user(
     new_user: schemas.UserEdit,
