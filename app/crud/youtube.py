@@ -1,10 +1,13 @@
 from typing import Annotated
 from fastapi import Depends, HTTPException
+import requests
 from sqlalchemy.orm import Session
 
 from app import crud
 
 from .. import models, schemas
+
+API_KEY = "AIzaSyBL5MLgdM4_o4mdmzhKnDNRwNKpYkfrkAo"
 
 
 def get_video(db: Session, id: int):
