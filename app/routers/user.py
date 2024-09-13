@@ -63,6 +63,7 @@ def get_redirection_page(username: str, db: Session = Depends(get_db)):
     db_user_following = crud.get_follow(db, username)
     db_user_get_qna = crud.get_qna(db, db_user.id)
     db_user_game = crud.get_scorelist(db, username)
+    db_user_video = crud.get_video(db, db_user.id)
 
     return {
         "user": db_user,
@@ -70,6 +71,7 @@ def get_redirection_page(username: str, db: Session = Depends(get_db)):
         "following": db_user_following,
         "qna": db_user_get_qna,
         "game_scores": db_user_game,
+        "video": db_user_video,
     }
 
 
